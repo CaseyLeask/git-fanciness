@@ -1,6 +1,19 @@
 # Git Fanciness
 > A [Bespoke.js](http://markdalgleish.com/projects/bespoke.js) presentation, built with [generator-bespoke](https://github.com/markdalgleish/generator-bespoke)
 
+## Notes
+* log (and aliases)
+* merging
+* revert
+* stash
+* reset
+* cherry-pick
+* rebase on pull
+* unstaging changes
+* commit --amend
+* partial commit
+* reflog
+
 ## View slides locally
 
 First, ensure you have the following installed:
