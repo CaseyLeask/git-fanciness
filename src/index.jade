@@ -11,31 +11,87 @@ html(lang="en")
     link(rel='stylesheet', type='text/css', href='styles/main.css')
 
   body
-
     article
-
       section
         h1 Git Fanciness
 
       section
-        h2 Bullet List
-        h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
+        h2 Git topics
         ul
-          li Bullet 1
-          li Bullet 2
-          li Bullet 3
+          li
+          li log (and aliases)
+          li merging
+          li revert
+          li stash
+          li reset
+          li cherry-pick
+          li rebase on pull
+          li unstaging changes
+          li commit --amend
+          li partial commit
+          li reflog
 
       section
-        h2 Syntax Highlighting
-        h3.bullet Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
+        h2 Git log
         hr
-        code.language-javascript
+        code.language-bash
           pre.
-            bespoke.horizontal.from('article', {
-              bullets: 'li, .bullet',
-              hash: true,
-              state: true
-            });
+            alias glog='git log --pretty="format: # custom format
+                        %h # abbr commit hash
+                        %d # ref name
+                        %s # subject
+                        %an, # author name and a comma
+                        %ar"' # author date
+
+        hr
+        div 7e5bb8a Initial commit  Casey Leask, 71 minutes ago
+
+      section
+        h2 What will this show?
+        hr
+        code.language-bash
+          pre.
+            alias gl='glog --graph' # add the graph notation
+
+      section
+        h2 Boom
+        hr
+        code.language.align-left
+          pre.
+            *   ab19dc8 Merge..  James Vulling, 3 weeks ago
+            |\
+            | * 73ea208 (origin/pom-formatting) ..  James, 3 weeks ago
+            * | 0166e99 (build-1.0.1377) Fixed..  MachSphere, 3 weeks ago
+            |/
+            *   5cd710b Merge branch 'master'  James, 3 weeks ago
+            |\
+            | * a9509f1 CMS-3859..  Casey Leask, 3 weeks ago
+            | * 9209202 adding..  Krishna, 3 weeks ago
+            * | a81acd5 updated corporate..   James, 3 weeks ago
+            * | 3eacffa added properties..   James, 3 weeks ago
+            |/
+            * b46da7e (build-1.0.1375, ..) ..  James, 4 weeks ago
+
+      section
+        h2 And this one?
+        hr
+        code.language-bash
+          pre.
+            alias gla='gl --all' # all branches, not just current
+
+      section
+        h2 Whoah
+        hr
+        code.language.align-left
+          pre.
+            *   626e406 (build-1.0.1364) Merge..  Krishna Singampalli, 5 weeks ago
+            |\
+            * | a3f877b CMS-3721..  Krishna Singampalli, 5 weeks ago
+            | | * 9beeade (origin/updated-js) Updating..  Casey Leask, 5 weeks ago
+            | |/
+            | * 00a85ff CMS-3806 2nd issue  Casey Leask, 5 weeks ago
+            |/
+            * 89ff46f CMS-3721: Added min height to author..  jarome, 5 weeks ago
 
       section(data-bespoke-hash='named-route')
         h2 Named Route
