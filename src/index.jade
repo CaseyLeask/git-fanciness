@@ -44,17 +44,18 @@ html(lang="en")
                         %ar"' # author date
 
         hr
-        div.align-left 
-          div deb8255 (HEAD, origin/master, master) Updated slides based on topics  Casey Leask, 14 minutes ago
-          div 3e20d74 Added background images  Casey Leask, 30 minutes ago
-          div 4970cc6 Added some early slide markup  Casey Leask, 57 minutes ago
-          div 46c717b Increased slide size  Casey Leask, 58 minutes ago
-          div 6333595 Added bash syntax highlighting  Casey Leask, 58 minutes ago
-          div ba545ac Specified HTML5 and english in head  Casey Leask, 2 hours ago
-          div da6c86f Added presentation topics in order of priority  Casey Leask, 3 hours ago
-          div bf35a6b Added generator-bespoke output  Casey Leask, 3 hours ago
-          div 2614cc4 Delete README.md  Casey Leask, 3 hours ago
-          div 7e5bb8a Initial commit  Casey Leask, 3 hours ago
+        code.align-left 
+          pre.
+            deb8255 (HEAD, origin/master, master) Updated slides..  Casey Leask, 14 minutes ago
+            3e20d74 Added background images  Casey Leask, 30 minutes ago
+            4970cc6 Added some early slide markup  Casey Leask, 57 minutes ago
+            46c717b Increased slide size  Casey Leask, 58 minutes ago
+            6333595 Added bash syntax highlighting  Casey Leask, 58 minutes ago
+            ba545ac Specified HTML5 and english in head  Casey Leask, 2 hours ago
+            da6c86f Added presentation topics in order of priority  Casey Leask, 3 hours ago
+            bf35a6b Added generator-bespoke output  Casey Leask, 3 hours ago
+            2614cc4 Delete README.md  Casey Leask, 3 hours ago
+            7e5bb8a Initial commit  Casey Leask, 3 hours ago
 
       section
         h2 What will this show?
@@ -66,7 +67,7 @@ html(lang="en")
       section
         h2 Boom
         hr
-        code.language.align-left
+        code.align-left
           pre.
             *   ab19dc8 Merge..  James Vulling, 3 weeks ago
             |\
@@ -92,7 +93,7 @@ html(lang="en")
       section(data-bespoke-state='whoa')
         h2 Whoah
         hr
-        code.language.align-left
+        code.align-left
           pre.
             *   626e406 (build-1.0.1364) Merge..  Krishna Singampalli, 5 weeks ago
             |\
@@ -104,10 +105,64 @@ html(lang="en")
             * 89ff46f CMS-3721: Added min height to author..  jarome, 5 weeks ago
 
       section
-        h2 Merging
+        h2.bullet Merging
+        h3 fast-forward
+        ul
+          li What happens when you're moving up the commit tree
+          li
+            code.align-left
+              pre.
+                * f0f398d    (18 minutes)  <Casey Leask>   (origin/master) Fleshed out first..
+                * deb8255    (37 minutes)  <Casey Leask>   Updated slides based on topics
+                * 3e20d74    (52 minutes)  <Casey Leask>   Added background images
+                * 4970cc6    (80 minutes)  <Casey Leask>   Added some early slide markup
+                * 46c717b    (80 minutes)  <Casey Leask>   (HEAD, master) Increased slide size
+                * 6333595    (81 minutes)  <Casey Leask>   Added bash syntax highlighting
+                * ba545ac    (3 hours)     <Casey Leask>   Specified HTML5 and english in head
+                * da6c86f    (3 hours)     <Casey Leask>   Added presentation topics in order of priority
+                * bf35a6b    (3 hours)     <Casey Leask>   Added generator-bespoke output
+                * 2614cc4    (3 hours)     <Casey Leask>   Delete README.md
+                * 7e5bb8a    (3 hours)     <Casey Leask>   Initial commit
+          li This is what normally happens when you
+            code git pull
+                
 
       section
-        h2 revert
+        h2.bullet Merging
+        h3 Actual merging
+        ul
+          li What happens when someone else has updated the source since you made a commit
+            code.align-left
+              pre.
+                * d61378f (HEAD, master) Updated README instructions  Casey Leask, 27 seconds ago
+                | * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+                |/
+                * d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
+          li And you merge it in, eg.
+            code git merge origin/master
+            code.align-left
+              pre.
+                *   4702015 (HEAD, master) Merge remote-tracking..  Casey Leask, 13 seconds ago
+                |\
+                | * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+                * | d61378f Updated README instructions  Casey Leask, 5 minutes ago
+                |/
+                * d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
+
+      section
+        h2.bullet rebase
+        ul
+          li Results in a nicer log
+          li
+            code.align-left
+              pre.
+                * 1b5242b (HEAD, master) Updated README instructions  Casey Leask, 14 minutes ago
+                * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+                * d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
+
+      section
+        h2
+          code revert
 
       section
         h2 stash
@@ -117,9 +172,6 @@ html(lang="en")
 
       section
         h2 cherry-pick
-
-      section
-        h2 rebase
 
       section
         h2 Unstaging
