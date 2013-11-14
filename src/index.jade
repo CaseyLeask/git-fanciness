@@ -208,55 +208,61 @@ html(lang="en")
           li Or something in an unfinished state that you want to fix later
 
       section
-        code.align-left
-          pre.
-            grox:git-fanciness(master) $ git status
-            # On branch master
-            # Your branch is ahead of 'origin/master' by 2 commits.
-            #   (use "git push" to publish your local commits)
-            #
-            # Changes not staged for commit:
-            #   (use "git add <file>..." to update what will be committed)
-            #   (use "git checkout -- <file>..." to discard changes in working directory)
-            #
-            #   modified:   src/index.jade
-            #
-            no changes added to commit (use "git add" and/or "git commit -a")
+        h2.bullet stash
+        ul
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git status
+                # On branch master
+                # Your branch is ahead of 'origin/master' by 2 commits.
+                #   (use "git push" to publish your local commits)
+                #
+                # Changes not staged for commit:
+                #   (use "git add <file>..." to update what will be committed)
+                #   (use "git checkout -- <file>..." to discard changes in working directory)
+                #
+                #   modified:   src/index.jade
+                #
+                no changes added to commit (use "git add" and/or "git commit -a")
+
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git stash
+                Saved working directory and index state WIP on master:
+                47a1579 Revert "Deleted the source folder"
+                HEAD is now at 47a1579 Revert "Deleted the source folder"
 
       section
-        code.align-left
-          pre.
-            grox:git-fanciness(master) $ git stash
-            Saved working directory and index state WIP on master:
-            47a1579 Revert "Deleted the source folder"
-            HEAD is now at 47a1579 Revert "Deleted the source folder"
+        h2.bullet stash
+        ul
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git status
+                # On branch master
+                # Your branch is ahead of 'origin/master' by 2 commits.
+                #   (use "git push" to publish your local commits)
+                #
+                nothing to commit, working directory clean
 
-      section
-        code.align-left
-          pre.
-            grox:git-fanciness(master) $ git status
-            # On branch master
-            # Your branch is ahead of 'origin/master' by 2 commits.
-            #   (use "git push" to publish your local commits)
-            #
-            nothing to commit, working directory clean
-
-      section
-        code.align-left
-          pre.
-            grox:git-fanciness(master) $ git stash pop
-            # On branch master
-            # Your branch is ahead of 'origin/master' by 2 commits.
-            #   (use "git push" to publish your local commits)
-            #
-            # Changes not staged for commit:
-            #   (use "git add <file>..." to update what will be committed)
-            #   (use "git checkout -- <file>..." to discard changes in working directory)
-            #
-            # modified:   src/index.jade
-            #
-            no changes added to commit (use "git add" and/or "git commit -a")
-            Dropped refs/stash@{0} (2d4b9d1f2e56cecec1b3c768c862371c4ef28a8e)
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git stash pop
+                # On branch master
+                # Your branch is ahead of 'origin/master' by 2 commits.
+                #   (use "git push" to publish your local commits)
+                #
+                # Changes not staged for commit:
+                #   (use "git add <file>..." to update what will be committed)
+                #   (use "git checkout -- <file>..." to discard changes in working directory)
+                #
+                # modified:   src/index.jade
+                #
+                no changes added to commit (use "git add" and/or "git commit -a")
+                Dropped refs/stash@{0} (2d4b9d1f2e56cecec1b3c768c862371c4ef28a8e)
 
       section(data-bespoke-state='cherry')
         h2.bullet cherry-pick
