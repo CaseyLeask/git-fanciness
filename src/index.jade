@@ -243,14 +243,83 @@ html(lang="en")
             no changes added to commit (use "git add" and/or "git commit -a")
             Dropped refs/stash@{0} (2d4b9d1f2e56cecec1b3c768c862371c4ef28a8e)
 
-      section
+      section(data-bespoke-state='cherry')
         h2.bullet cherry-pick
         ul
           li Pick out specific commits and apply them to HEAD
           li Not often needed, but very useful when it is
 
       section
-        h2 Unstaging
+        h2.bullet An example
+        ul
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ gla -5
+                * c79a6fd (HEAD, master) revert and cherry-pick slides  Casey Leask, 34 seconds ago
+                | * 16e2750 (cherry-background) Upped the..  Casey Leask, 2 minutes ago
+                | * 20c3e96 Added lame-ass cherry gif  Casey Leask, 4 minutes ago
+                |/
+                * 47a1579 Revert "Deleted the source folder"  Casey Leask, 27 minutes ago
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git cherry-pick cherry-background
+                [master 20c3e96] Added lame-ass cherry gif
+                 3 file changed, 3 insertion(+) and 1 deletion(-)
+          li
+            code.align-left
+              pre.
+                rox:git-fanciness(master) $ gla -2
+                * 8a97cee (HEAD, master) Added lame-ass cherry gif  Casey Leask, 20 minutes ago
+                * c79a6fd Fleshed out revert and cherry-pick slides  Casey Leask, 17 minutes ago
+
+      section
+        h2.bullet Unstaging
+        h3
+          code git reset
+        ul
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git add src
+                grox:git-fanciness(master) $ git status
+                # On branch master
+                # Changes to be committed:
+                #   (use "git reset HEAD <file>..." to unstage)
+                #
+                # modified:   src/index.jade
+                # modified:   src/styles/main.styl
+
+                grox:git-fanciness(master) $ git reset src/styles
+                Unstaged changes after reset:
+                M   srcsrc/styles/main.styl
+
+                grox:git-fanciness(master) $ git status
+                # On branch master
+                # Changes to be committed:
+                #   (use "git reset HEAD <file>..." to unstage)
+                #
+                #   modified:   src/index.jade
+                #
+                # Changes not staged for commit:
+                #   (use "git add <file>..." to update what will be committed)
+                #   (use "git checkout -- <file>..." to discard changes in working directory)
+                #
+                #   modified:   src/styles/main.styl
+
+      section
+        h2.bullet Unstaging
+        h3
+          code git reset --hard
+        ul
+          li This will remove any changes (to tracked files)
+          li Dangerous -- One of the few destructive commands in git
+          br
+          li If you have local changes, remember to
+            code
+              pre.
+                git stash
 
       section
         h2 commit --amend
