@@ -373,30 +373,67 @@ html(lang="en")
                 * 47a1579 Revert "Deleted the source folder"  Casey Leask, 65 minutes ago
 
       section
-        h2
-          code
-            pre.
-              git add -p
-
-      section
-        h2
-          code
-            pre.
-              git reflog
-
-      section
-        h2.bullet Resources
-        hr
+        h2.bullet git add -p
+        code (-p, --patch)
+        p Selectively add parts of a file to the staged changes
         ul
           li
-            a(href='http://tom.preston-werner.com/2009/05/19/the-git-parable.html') The Git Parable, by Tom Preston-Werner
-          li
-            a(href='http://pcottle.github.io/learnGitBranching/?demo') Learn Git Branching
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git add -p src/index.jade
+                @@ -381,7 +379,4 @@
+                section
+                -        h2
+                -          code
+                -            pre.
+                -              git reflog
+                +        h2 git reflog
+
+                section
+                Stage this hunk [y,n,q,a,d,/,K,j,J,g,e,?]? y
+
+      section
+        h2.bullet git add -p
+        code
+          | (-p, --patch)
+          br
+          | `man git-add`
+        code.align-left
+          pre.
+            y - stage this hunk
+            n - do not stage this hunk
+            q - quit; do not stage this hunk nor any of the remaining ones
+            a - stage this hunk and all later hunks in the file
+            d - do not stage this hunk nor any of the later hunks in the file
+            g - select a hunk to go to
+            / - search for a hunk matching the given regex
+            j - leave this hunk undecided, see next undecided hunk
+            J - leave this hunk undecided, see next hunk
+            k - leave this hunk undecided, see previous undecided hunk
+            K - leave this hunk undecided, see previous hunk
+            s - split the current hunk into smaller hunks
+            e - manually edit the current hunk
+            ? - print help
+
+        p.align-left After deciding the fate for all hunks, if there is any hunk that was chosen, the index is updated with the selected hunks.
+
+        p.align-left You can omit having to type return here, by setting the configuration variable interactive.singlekey to true.
+
+      section
+        h2 git reflog
+
+      section
+        h2 Resources
         hr
-        ul
-          li
-            strong Enjoy! :)
-            a(href='http://twitter.com/CaseyLeask')  -@CaseyLeask
+        p
+          a(href='http://tom.preston-werner.com/2009/05/19/the-git-parable.html') The Git Parable, by Tom Preston-Werner
+        p
+          a(href='http://pcottle.github.io/learnGitBranching/?demo') Learn Git Branching
+        br
+        p
+          strong Enjoy! :)
+        p
+          a(href='http://twitter.com/CaseyLeask') @CaseyLeask
 
     script(src='bower_components/bespoke.js/dist/bespoke.min.js')
     script(src='bower_components/bespoke-bullets/dist/bespoke-bullets.min.js')
