@@ -156,6 +156,21 @@ html(lang="en")
           li
             code.align-left
               pre.
+                grox:git-fanciness(master) $ gla -3
+                * d61378f (HEAD, master) Updated README instructions  Casey Leask, 27 seconds ago
+                | * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+                |/
+                * d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git rebase origin/master
+                First, rewinding head to replay your work on top of it...
+                Applying: Updated README instructions
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ gl -3
                 * 1b5242b (HEAD, master) Updated README instructions  Casey Leask, 14 minutes ago
                 * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
                 * d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
@@ -264,7 +279,7 @@ html(lang="en")
           li
             code.align-left
               pre.
-                grox:git-fanciness(master) $ git cherry-pick cherry-background
+                grox:git-fanciness(master) $ git cherry-pick cherry-background^
                 [master 20c3e96] Added lame-ass cherry gif
                  3 file changed, 3 insertion(+) and 1 deletion(-)
           li
@@ -322,13 +337,46 @@ html(lang="en")
                 git stash
 
       section
-        h2 commit --amend
+        h2.bullet
+          code
+            pre.
+              git commit --amend
+        ul
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ gl -3
+                * 8a97cee (HEAD, master) Added lame-ass cherry gif  Casey Leask, 35 minutes ago
+                * c79a6fd Fleshed out revert and cherry-pick slides  Casey Leask, 32 minutes ago
+                * 47a1579 Revert "Deleted the source folder"  Casey Leask, 59 minutes ago
+          li I really should fix this commit message
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ git commit --amend
+                ".git/COMMIT_EDITMSG" 21L, 588C written
+                [master 41b9b1c] Added cherry gif
+                 3 files changed, 74 insertions(+), 2 deletions(-)
+                  create mode 100644 src/images/cherry.gif
+          li
+            code.align-left
+              pre.
+                grox:git-fanciness(master) $ gl -3
+                * 41b9b1c (HEAD, master) Added cherry gif  Casey Leask, 41 minutes ago
+                * c79a6fd Fleshed out revert and cherry-pick slides  Casey Leask, 38 minutes ago
+                * 47a1579 Revert "Deleted the source folder"  Casey Leask, 65 minutes ago
 
       section
-        h2 add -p
+        h2
+          code
+            pre.
+              git add -p
 
       section
-        h2 reflog
+        h2
+          code
+            pre.
+              git reflog
 
       section
         h2.bullet Resources
