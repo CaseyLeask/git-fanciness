@@ -161,17 +161,93 @@ html(lang="en")
                 * d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
 
       section
-        h2
+        h2.bullet
           code revert
+        ul
+          li For when you screwed up, and already pushed your changes
+            code.align-left
+              pre.
+                * 689f55d (HEAD, master, origin/master) Deleted everything  Casey Leask, 12 seconds ago
+                * 561562e More slides..  Casey Leask, 49 minutes ago
+                * f0f398d Fleshed out first ```git log``` example  Casey Leask, 2 hours ago
+                * deb8255 Updated slides based on topics  Casey Leask, 2 hours ago
+                * 3e20d74 Added background images  Casey Leask, 2 hours ago
+        li Revert to the rescue!
+          code
+            pre.
+              git revert master
+          code.align-left
+            pre.
+              * 47a1579 (HEAD, master) Revert "Deleted the source folder"  Casey Leask, 14 seconds ago
+              * 689f55d Deleted the source folder  Casey Leask, 38 seconds ago
+              * 561562e (origin/master) More slides and cleaned up code markup  Casey Leask, 49 minutes ago
+              * f0f398d Fleshed out first ```git log``` example  Casey Leask, 2 hours ago
+              * deb8255 Updated slides based on topics  Casey Leask, 2 hours ago
+        li Once you push to origin, you can't rebase or remove those commits (it's bad manners)
 
       section
-        h2 stash
+        h2.bullet stash
+        ul
+          li For when you have uncommitted changes and want to merge / checkout code
+          li These could be modifications specific to your dev machine
+          li Or something in an unfinished state that you want to fix later
 
       section
-        h2 reset
+        code.align-left
+          pre.
+            grox:git-fanciness(master) $ git status
+            # On branch master
+            # Your branch is ahead of 'origin/master' by 2 commits.
+            #   (use "git push" to publish your local commits)
+            #
+            # Changes not staged for commit:
+            #   (use "git add <file>..." to update what will be committed)
+            #   (use "git checkout -- <file>..." to discard changes in working directory)
+            #
+            #   modified:   src/index.jade
+            #
+            no changes added to commit (use "git add" and/or "git commit -a")
 
       section
-        h2 cherry-pick
+        code.align-left
+          pre.
+            grox:git-fanciness(master) $ git stash
+            Saved working directory and index state WIP on master:
+            47a1579 Revert "Deleted the source folder"
+            HEAD is now at 47a1579 Revert "Deleted the source folder"
+
+      section
+        code.align-left
+          pre.
+            grox:git-fanciness(master) $ git status
+            # On branch master
+            # Your branch is ahead of 'origin/master' by 2 commits.
+            #   (use "git push" to publish your local commits)
+            #
+            nothing to commit, working directory clean
+
+      section
+        code.align-left
+          pre.
+            grox:git-fanciness(master) $ git stash pop
+            # On branch master
+            # Your branch is ahead of 'origin/master' by 2 commits.
+            #   (use "git push" to publish your local commits)
+            #
+            # Changes not staged for commit:
+            #   (use "git add <file>..." to update what will be committed)
+            #   (use "git checkout -- <file>..." to discard changes in working directory)
+            #
+            # modified:   src/index.jade
+            #
+            no changes added to commit (use "git add" and/or "git commit -a")
+            Dropped refs/stash@{0} (2d4b9d1f2e56cecec1b3c768c862371c4ef28a8e)
+
+      section
+        h2.bullet cherry-pick
+        ul
+          li Pick out specific commits and apply them to HEAD
+          li Not often needed, but very useful when it is
 
       section
         h2 Unstaging
