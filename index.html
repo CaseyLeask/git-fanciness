@@ -1,0 +1,184 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><title>Git Fanciness</title><link rel="stylesheet" type="text/css" href="bower_components/prism/themes/prism-tomorrow.css"><link rel="stylesheet" type="text/css" href="styles/main.css"></head><body><article><section><h1>Git Fanciness</h1></section><section><h2>Git topics</h2><ul><li></li><li>log (and aliases)</li><li>merging</li><li>revert</li><li>stash</li><li>reset</li><li>cherry-pick</li><li>rebase on pull</li><li>unstaging changes</li><li>commit --amend</li><li>partial commit</li><li>reflog</li></ul></section><section><h2>Git log</h2><hr><code class="language-bash"><pre>alias glog='git log --pretty=&quot;format: # custom format
+            %h # abbr commit hash
+            %d # ref name
+            %s # subject
+            %an, # author name and a comma
+            %ar&quot;' # author date
+            </pre></code><hr><code class="align-left"> <pre>deb8255 (HEAD, origin/master, master) Updated slides..  Casey Leask, 14 minutes ago
+3e20d74 Added background images  Casey Leask, 30 minutes ago
+4970cc6 Added some early slide markup  Casey Leask, 57 minutes ago
+46c717b Increased slide size  Casey Leask, 58 minutes ago
+6333595 Added bash syntax highlighting  Casey Leask, 58 minutes ago
+ba545ac Specified HTML5 and english in head  Casey Leask, 2 hours ago
+da6c86f Added presentation topics in order of priority  Casey Leask, 3 hours ago
+bf35a6b Added generator-bespoke output  Casey Leask, 3 hours ago
+2614cc4 Delete README.md  Casey Leask, 3 hours ago
+7e5bb8a Initial commit  Casey Leask, 3 hours ago
+</pre></code></section><section><h2>What will this show?</h2><hr><code class="language-bash"><pre>alias gl='glog --graph' # add the graph notation
+</pre></code></section><section><h2>Boom</h2><hr><code class="align-left"><pre>*   ab19dc8 Merge..  James Vulling, 3 weeks ago
+|\
+| * 73ea208 (origin/pom-formatting) ..  James, 3 weeks ago
+* | 0166e99 (build-1.0.1377) Fixed..  MachSphere, 3 weeks ago
+|/
+*   5cd710b Merge branch 'master'  James, 3 weeks ago
+|\
+| * a9509f1 CMS-3859..  Casey Leask, 3 weeks ago
+| * 9209202 adding..  Krishna, 3 weeks ago
+* | a81acd5 updated corporate..   James, 3 weeks ago
+* | 3eacffa added properties..   James, 3 weeks ago
+|/
+* b46da7e (build-1.0.1375, ..) ..  James, 4 weeks ago
+</pre></code></section><section><h2>And this one?</h2><hr><code class="language-bash"><pre>alias gla='gl --all' # all branches, not just current
+</pre></code></section><section data-bespoke-state="whoa"><h2>Whoah</h2><hr><code class="align-left"><pre>*   626e406 (build-1.0.1364) Merge..  Krishna Singampalli, 5 weeks ago
+|\
+* | a3f877b CMS-3721..  Krishna Singampalli, 5 weeks ago
+| | * 9beeade (origin/updated-js) Updating..  Casey Leask, 5 weeks ago
+| |/
+| * 00a85ff CMS-3806 2nd issue  Casey Leask, 5 weeks ago
+|/
+* 89ff46f CMS-3721: Added min height to author..  jarome, 5 weeks ago
+</pre></code></section><section><h2 class="bullet">Merging</h2><h3>fast-forward</h3><ul><li>What happens when you're moving up the commit tree</li><li><code class="align-left"><pre>* f0f398d    (18 minutes)  &lt;Casey Leask&gt;   (origin/master) Fleshed out first..
+* deb8255    (37 minutes)  &lt;Casey Leask&gt;   Updated slides based on topics
+* 3e20d74    (52 minutes)  &lt;Casey Leask&gt;   Added background images
+* 4970cc6    (80 minutes)  &lt;Casey Leask&gt;   Added some early slide markup
+* 46c717b    (80 minutes)  &lt;Casey Leask&gt;   (HEAD, master) Increased slide size
+* 6333595    (81 minutes)  &lt;Casey Leask&gt;   Added bash syntax highlighting
+* ba545ac    (3 hours)     &lt;Casey Leask&gt;   Specified HTML5 and english in head
+* da6c86f    (3 hours)     &lt;Casey Leask&gt;   Added presentation topics in order of priority
+* bf35a6b    (3 hours)     &lt;Casey Leask&gt;   Added generator-bespoke output
+* 2614cc4    (3 hours)     &lt;Casey Leask&gt;   Delete README.md
+* 7e5bb8a    (3 hours)     &lt;Casey Leask&gt;   Initial commit</pre></code></li><li>This is what normally happens when you<code>git pull</code></li></ul></section><section><h2 class="bullet">Merging</h2><h3>Actual merging</h3><ul><li>What happens when someone else has updated the source since you made a commit<code class="align-left"><pre>* d61378f (HEAD, master) Updated README instructions  Casey Leask, 27 seconds ago
+| * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+|/
+* d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago</pre></code></li><li>And you merge it in, eg.<code>git merge origin/master</code><code class="align-left"><pre>*   4702015 (HEAD, master) Merge remote-tracking..  Casey Leask, 13 seconds ago
+|\
+| * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+* | d61378f Updated README instructions  Casey Leask, 5 minutes ago
+|/
+* d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
+</pre></code></li></ul></section><section><h2 class="bullet">rebase</h2><ul><li>Results in a nicer log</li><li><code class="align-left"><pre>grox:git-fanciness(master) $ gla -3
+* d61378f (HEAD, master) Updated README instructions  Casey Leask, 27 seconds ago
+| * 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+|/
+* d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago</pre></code></li><li><code class="align-left"><pre>grox:git-fanciness(master) $ git rebase origin/master
+First, rewinding head to replay your work on top of it...
+Applying: Updated README instructions</pre></code></li><li><code class="align-left"><pre>grox:git-fanciness(master) $ gl -3
+* 1b5242b (HEAD, master) Updated README instructions  Casey Leask, 14 minutes ago
+* 69e04a8 (origin/master, origin/HEAD) removing..  Jarome Harmsworth, 20 hours ago
+* d088360 CMS-3923: Init for maitenance page  Jarome Harmsworth, 20 hours ago
+</pre></code></li></ul></section><section><h2 class="bullet"><code>revert</code></h2><ul><li>For when you screwed up, and already pushed your changes<code class="align-left"><pre>* 689f55d (HEAD, master, origin/master) Deleted everything  Casey Leask, 12 seconds ago
+* 561562e More slides..  Casey Leask, 49 minutes ago
+* f0f398d Fleshed out first ```git log``` example  Casey Leask, 2 hours ago
+* deb8255 Updated slides based on topics  Casey Leask, 2 hours ago
+* 3e20d74 Added background images  Casey Leask, 2 hours ago</pre></code></li></ul><li>Revert to the rescue!<code><pre>git revert master</pre></code><code class="align-left"><pre>* 47a1579 (HEAD, master) Revert &quot;Deleted the source folder&quot;  Casey Leask, 14 seconds ago
+* 689f55d Deleted the source folder  Casey Leask, 38 seconds ago
+* 561562e (origin/master) More slides and cleaned up code markup  Casey Leask, 49 minutes ago
+* f0f398d Fleshed out first ```git log``` example  Casey Leask, 2 hours ago
+* deb8255 Updated slides based on topics  Casey Leask, 2 hours ago</pre></code></li><li>Once you push to origin, you can't rebase or remove those commits (it's bad manners)</li></section><section><h2 class="bullet">stash</h2><ul><li>For when you have uncommitted changes and want to merge / checkout code</li><li>These could be modifications specific to your dev machine</li><li>Or something in an unfinished state that you want to fix later</li></ul></section><section><h2 class="bullet">stash</h2><ul><li><code class="align-left"><pre>grox:git-fanciness(master) $ git status
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#   (use &quot;git push&quot; to publish your local commits)
+#
+# Changes not staged for commit:
+#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+#
+#   modified:   src/index.jade
+#
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+</pre></code></li><li><code class="align-left"><pre>grox:git-fanciness(master) $ git stash
+Saved working directory and index state WIP on master:
+47a1579 Revert &quot;Deleted the source folder&quot;
+HEAD is now at 47a1579 Revert &quot;Deleted the source folder&quot;
+</pre></code></li></ul></section><section><h2 class="bullet">stash</h2><ul><li><code class="align-left"><pre>grox:git-fanciness(master) $ git status
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#   (use &quot;git push&quot; to publish your local commits)
+#
+nothing to commit, working directory clean
+</pre></code></li><li><code class="align-left"><pre>grox:git-fanciness(master) $ git stash pop
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#   (use &quot;git push&quot; to publish your local commits)
+#
+# Changes not staged for commit:
+#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+#
+# modified:   src/index.jade
+#
+no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+Dropped refs/stash@{0} (2d4b9d1f2e56cecec1b3c768c862371c4ef28a8e)
+</pre></code></li></ul></section><section data-bespoke-state="cherry"><h2 class="bullet">cherry-pick</h2><ul><li>Pick out specific commits and apply them to HEAD</li><li>Not often needed, but very useful when it is</li></ul></section><section><h2 class="bullet">An example</h2><ul><li><code class="align-left"><pre>grox:git-fanciness(master) $ gla -5
+* c79a6fd (HEAD, master) revert and cherry-pick slides  Casey Leask, 34 seconds ago
+| * 16e2750 (cherry-background) Upped the..  Casey Leask, 2 minutes ago
+| * 20c3e96 Added lame-ass cherry gif  Casey Leask, 4 minutes ago
+|/
+* 47a1579 Revert &quot;Deleted the source folder&quot;  Casey Leask, 27 minutes ago</pre></code></li><li><code class="align-left"><pre>grox:git-fanciness(master) $ git cherry-pick cherry-background^
+[master 20c3e96] Added lame-ass cherry gif
+ 3 file changed, 3 insertion(+) and 1 deletion(-)</pre></code></li><li><code class="align-left"><pre>rox:git-fanciness(master) $ gla -2
+* 8a97cee (HEAD, master) Added lame-ass cherry gif  Casey Leask, 20 minutes ago
+* c79a6fd Fleshed out revert and cherry-pick slides  Casey Leask, 17 minutes ago
+</pre></code></li></ul></section><section><h2 class="bullet">Unstaging</h2><h3><code>git reset</code></h3><ul><li><code class="align-left"><pre>grox:git-fanciness(master) $ git add src
+grox:git-fanciness(master) $ git status
+# On branch master
+# Changes to be committed:
+#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#
+# modified:   src/index.jade
+# modified:   src/styles/main.styl
+
+grox:git-fanciness(master) $ git reset src/styles
+Unstaged changes after reset:
+M   srcsrc/styles/main.styl
+
+grox:git-fanciness(master) $ git status
+# On branch master
+# Changes to be committed:
+#   (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)
+#
+#   modified:   src/index.jade
+#
+# Changes not staged for commit:
+#   (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+#   (use &quot;git checkout -- &lt;file&gt;...&quot; to discard changes in working directory)
+#
+#   modified:   src/styles/main.styl
+</pre></code></li></ul></section><section><h2 class="bullet">Unstaging</h2><h3><code>git reset --hard</code></h3><ul><li>This will remove any changes (to tracked files)</li><li>Dangerous -- One of the few destructive commands in git</li><br><li>If you have local changes, remember to<code><pre>git stash
+</pre></code></li></ul></section><section><h2 class="bullet"><code><pre>git commit --amend</pre></code></h2><ul><li><code class="align-left"><pre>grox:git-fanciness(master) $ gl -3
+* 8a97cee (HEAD, master) Added lame-ass cherry gif  Casey Leask, 35 minutes ago
+* c79a6fd Fleshed out revert and cherry-pick slides  Casey Leask, 32 minutes ago
+* 47a1579 Revert &quot;Deleted the source folder&quot;  Casey Leask, 59 minutes ago</pre></code></li><li>I really should fix this commit message</li><li><code class="align-left"><pre>grox:git-fanciness(master) $ git commit --amend
+&quot;.git/COMMIT_EDITMSG&quot; 21L, 588C written
+[master 41b9b1c] Added cherry gif
+ 3 files changed, 74 insertions(+), 2 deletions(-)
+  create mode 100644 src/images/cherry.gif</pre></code></li><li><code class="align-left"><pre>grox:git-fanciness(master) $ gl -3
+* 41b9b1c (HEAD, master) Added cherry gif  Casey Leask, 41 minutes ago
+* c79a6fd Fleshed out revert and cherry-pick slides  Casey Leask, 38 minutes ago
+* 47a1579 Revert &quot;Deleted the source folder&quot;  Casey Leask, 65 minutes ago
+</pre></code></li></ul></section><section><h2 class="bullet">git add -p</h2><code>(-p, --patch)</code><p>Selectively add parts of a file to the staged changes</p><ul><li><code class="align-left"><pre>grox:git-fanciness(master) $ git add -p src/index.jade
+@@ -381,7 +379,4 @@
+section
+-        h2
+-          code
+-            pre.
+-              git reflog
++        h2 git reflog
+
+section
+Stage this hunk [y,n,q,a,d,/,K,j,J,g,e,?]? y
+</pre></code></li></ul></section><section><h2 class="bullet">git add -p</h2><code>(-p, --patch)<br>`man git-add`</code><code class="align-left"><pre>y - stage this hunk
+n - do not stage this hunk
+q - quit; do not stage this hunk nor any of the remaining ones
+a - stage this hunk and all later hunks in the file
+d - do not stage this hunk nor any of the later hunks in the file
+g - select a hunk to go to
+/ - search for a hunk matching the given regex
+j - leave this hunk undecided, see next undecided hunk
+J - leave this hunk undecided, see next hunk
+k - leave this hunk undecided, see previous undecided hunk
+K - leave this hunk undecided, see previous hunk
+s - split the current hunk into smaller hunks
+e - manually edit the current hunk
+? - print help
+</pre></code><p class="align-left">After deciding the fate for all hunks, if there is any hunk that was chosen, the index is updated with the selected hunks.</p><p class="align-left">You can omit having to type return here, by setting the configuration variable interactive.singlekey to true.</p></section><section><h2>Resources</h2><hr><p><a href="http://tom.preston-werner.com/2009/05/19/the-git-parable.html">The Git Parable, by Tom Preston-Werner</a></p><p><a href="http://pcottle.github.io/learnGitBranching/?demo">Learn Git Branching</a></p><br><p><strong>Enjoy! :)</strong></p><p><a href="http://twitter.com/CaseyLeask">@CaseyLeask</a></p></section></article><script src="bower_components/bespoke.js/dist/bespoke.min.js"></script><script src="bower_components/bespoke-bullets/dist/bespoke-bullets.min.js"></script><script src="bower_components/bespoke-scale/dist/bespoke-scale.min.js"></script><script src="bower_components/bespoke-hash/dist/bespoke-hash.min.js"></script><script src="bower_components/bespoke-progress/dist/bespoke-progress.min.js"></script><script src="bower_components/bespoke-state/dist/bespoke-state.min.js"></script><script src="bower_components/prism/prism.js"></script><script src="bower_components/prism/components/prism-bash.js"></script><script src="scripts/main.js"></script></body></html>
